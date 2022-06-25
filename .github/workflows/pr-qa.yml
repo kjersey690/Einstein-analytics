@@ -6,7 +6,7 @@ name: CI
 # events but only for the master branch
 on:
   pull_request:
-    branches: [ qa ]
+    branches: [ Qa ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -32,7 +32,7 @@ jobs:
       run: openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out server.key -base64 -K ${{secrets.DECRYPTION_KEY}} -iv ${{secrets.DECRYPTION_IV}}
     - name: 'Authorize'
       run: |
-        echo username value ${{ secrets.USERNAME_QA }}
+        echo username value ${{ secrets.USERNAME_Qa }}
         sfdx force:auth:jwt:grant --clientid=${{ secrets.CONSUMER_KEY }} --username=${{ secrets.USERNAME }} --jwtkeyfile server.key --setdefaultdevhubusername --setalias=hub-org
     - name: 'Convert Metadata'
       run: sfdx force:source:convert --rootdir=force-app --outputdir=convert
